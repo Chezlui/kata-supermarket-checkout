@@ -1,6 +1,6 @@
-package net.serenitybdd.dojo.supermarket;
+package dojo.supermarket.model;
 
-import net.serenitybdd.dojo.supermarket.model.*;
+import dojo.supermarket.model.*;
 import org.junit.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;

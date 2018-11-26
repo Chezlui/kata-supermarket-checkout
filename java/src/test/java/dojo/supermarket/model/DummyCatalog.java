@@ -1,4 +1,4 @@
-package net.serenitybdd.dojo.supermarket.model;
+package dojo.supermarket.model;
 
 public class DummyCatalog implements SupermarketCatalog {
 }

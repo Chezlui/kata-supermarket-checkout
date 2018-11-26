@@ -1,4 +1,4 @@
-package net.serenitybdd.dojo.supermarket.model;
+package dojo.supermarket.model;
 
 import java.util.ArrayList;
 import java.util.List;
