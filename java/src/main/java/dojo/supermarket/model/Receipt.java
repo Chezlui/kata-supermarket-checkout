@@ -14,21 +14,12 @@ public class Receipt {
         return total;
     }
 
-    public void addProduct(Product p, double price) {
-        this.items.add(new ReceiptItem(p, price));
+    void addProduct(Product p, int quantity,  double price) {
+        this.items.add(new ReceiptItem(p, quantity, price));
     }
 
-    private class ReceiptItem {
-        private final Product product;
-        private final double price;
-
-        public ReceiptItem(Product p, double price) {
-            this.product = p;
-            this.price = price;
-        }
-
-        public double getPrice() {
-            return this.price;
-        }
+    public List<ReceiptItem> getItems() {
+        return new ArrayList<>(this.items);
     }
+
 }

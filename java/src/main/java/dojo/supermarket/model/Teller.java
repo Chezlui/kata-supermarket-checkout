@@ -17,14 +17,15 @@ public class Teller {
         Receipt receipt = new Receipt();
         Map<Product, Integer> productQuantities = theCart.productQuantities();
         for (Product p: productQuantities.keySet()) {
+            int quantity = productQuantities.get(p);
             double price;
             if (offers.containsKey(p)) {
                 Offer offer = offers.get(p);
-                price = offer.getTotalPrice(productQuantities.get(p), this.catalog.getPrice(p));
+                price = offer.getTotalPrice(quantity, this.catalog.getPrice(p));
             } else {
-                price = this.catalog.getPrice(p)*productQuantities.get(p);
+                price = this.catalog.getPrice(p)*quantity;
             }
-            receipt.addProduct(p, price);
+            receipt.addProduct(p, quantity, price);
         }
 
         return receipt;

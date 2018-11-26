@@ -1,11 +1,8 @@
 package dojo.supermarket.model;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.junit.Assert.assertEquals;
 
 public class WhenCheckingOutArticlesAtTheSupermarket {
@@ -68,5 +65,13 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         assertEquals(3*0.99, offer.getTotalPrice(4, 0.99), 0.001);
         assertEquals(4*0.99, offer.getTotalPrice(5, 0.99), 0.001);
         assertEquals(4*0.99, offer.getTotalPrice(6, 0.99), 0.001);
+    }
+
+    @Test
+    public void receipt_displays_all_items() {
+        theCart.addItem(toothbrush);
+        theCart.addItem(toothbrush);
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        assertEquals(new ReceiptItem(toothbrush, 2, 2*0.99), receipt.getItems().get(0));
     }
 }
