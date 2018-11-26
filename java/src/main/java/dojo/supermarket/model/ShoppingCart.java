@@ -1,37 +1,33 @@
 package dojo.supermarket.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCart {
 
     private final List<Product> items = new ArrayList<>();
 
-    public List<Product> getItems() {
+    List<Product> getItems() {
         return new ArrayList<>(items);
     }
 
-    public void addItem(Product product) {
+    void addItem(Product product) {
         items.add(product);
     }
 
-    public ShoppingCartAdder add(Product product) {
-        return new ShoppingCartAdder(this, product);
-    }
-
-    public class ShoppingCartAdder {
-        private final ShoppingCart shoppingCart;
-        private final Product product;
-
-        public ShoppingCartAdder(ShoppingCart shoppingCart, Product product) {
-            this.shoppingCart = shoppingCart;
-            this.product = product;
-        }
-
-        public void times(int quantity) {
-            for(int count = 0; count < quantity; count++) {
-                shoppingCart.addItem(product);
+    Map<Product, Integer> productQuantities() {
+        Map<Product, Integer> productQuantities = new HashMap<>();
+        for (Product p : getItems()) {
+            if (productQuantities.containsKey(p)) {
+                productQuantities.put(p, productQuantities.get(p) + 1);
+            } else {
+                productQuantities.put(p, 1);
             }
         }
+        return productQuantities;
     }
+
+
 }
