@@ -10,6 +10,11 @@ public class Teller {
     }
 
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
-        return new Receipt();
+        Receipt receipt = new Receipt();
+        for (Product p : theCart.getItems()) {
+            double price = this.catalog.getPrice(p);
+            receipt.addProduct(p, price);
+        }
+        return receipt;
     }
 }
