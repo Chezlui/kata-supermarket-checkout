@@ -1,0 +1,3 @@
+ReceiptItem{product=rice, quantity=1, price=2.99, totalPrice=2.99}
+Discount: 10% off(rice) -0.30
+Total: 2.69

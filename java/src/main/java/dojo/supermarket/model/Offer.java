@@ -1,7 +1,7 @@
 package dojo.supermarket.model;
 
-public interface Offer {
-    Product getProduct();
+public abstract class Offer {
+    abstract Product getProduct();
 
-    Discount getDiscount(Product product, double quantity, double priceForOne);
+    abstract Discount getDiscount(Product product, double quantity, double priceForOne);
 }

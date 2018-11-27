@@ -1,0 +1,4 @@
+ReceiptItem{product=cherry tomato box, quantity=1, price=0.69, totalPrice=0.69}
+ReceiptItem{product=cherry tomato box, quantity=1, price=0.69, totalPrice=0.69}
+Discount: 2 for 0.99(cherry tomato box) -0.39
+Total: 0.99

@@ -13,6 +13,7 @@ public class SupermarketTest {
     private Product toothbrush;
     private Product rice;
     private Product apples;
+    private Product cherryTomatoes;
 
     @Before
     public void setUp() {
@@ -26,6 +27,8 @@ public class SupermarketTest {
         catalog.addProduct(rice, 2.99);
         apples = new Product("apples", ProductUnit.Kilo);
         catalog.addProduct(apples, 1.99);
+        cherryTomatoes = new Product("cherry tomato box", ProductUnit.Each);
+        catalog.addProduct(cherryTomatoes, 0.69);
 
     }
 
@@ -61,8 +64,37 @@ public class SupermarketTest {
     }
 
     @Test
+    public void buy_five_get_one_free() {
+        theCart.addItem(toothbrush);
+        theCart.addItem(toothbrush);
+        theCart.addItem(toothbrush);
+        theCart.addItem(toothbrush);
+        theCart.addItem(toothbrush);
+        teller.addSpecialOffer(new ThreeForThePriceOfTwo(toothbrush, catalog.getUnitPrice(toothbrush)));
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        Approvals.verify(ReceiptPresenter.present(receipt));
+    }
+
+    @Test
     public void loose_weight_product() {
         theCart.addItemQuantity(apples, .5);
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        Approvals.verify(ReceiptPresenter.present(receipt));
+    }
+
+    @Test
+    public void percent_discount() {
+        theCart.addItem(rice);
+        teller.addSpecialOffer(new PercentDiscount(rice, 10));
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        Approvals.verify(ReceiptPresenter.present(receipt));
+    }
+
+    @Test
+    public void xForY_discount() {
+        theCart.addItem(cherryTomatoes);
+        theCart.addItem(cherryTomatoes);
+        teller.addSpecialOffer(new XForYDiscount(cherryTomatoes, 2, 0.99));
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(ReceiptPresenter.present(receipt));
     }

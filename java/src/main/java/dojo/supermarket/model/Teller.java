@@ -38,7 +38,7 @@ public class Teller {
         return receipt;
     }
 
-    public void addSpecialOffer(ThreeForThePriceOfTwo offer) {
+    public void addSpecialOffer(Offer offer) {
         this.offers.put(offer.getProduct(), offer);
     }
 }
