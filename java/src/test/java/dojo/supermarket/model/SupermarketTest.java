@@ -58,7 +58,7 @@ public class SupermarketTest {
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
-        teller.addSpecialOffer(new ThreeForThePriceOfTwo(toothbrush, catalog.getUnitPrice(toothbrush)));
+        teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, catalog.getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(ReceiptPresenter.present(receipt));
     }
@@ -70,7 +70,7 @@ public class SupermarketTest {
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
-        teller.addSpecialOffer(new ThreeForThePriceOfTwo(toothbrush, catalog.getUnitPrice(toothbrush)));
+        teller.addSpecialOffer(SpecialOfferType.ThreeForTwo, toothbrush, catalog.getUnitPrice(toothbrush));
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(ReceiptPresenter.present(receipt));
     }
@@ -85,7 +85,7 @@ public class SupermarketTest {
     @Test
     public void percent_discount() {
         theCart.addItem(rice);
-        teller.addSpecialOffer(new PercentDiscount(rice, 10));
+        teller.addSpecialOffer(SpecialOfferType.TenPercentDiscount, rice, 10.0);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(ReceiptPresenter.present(receipt));
     }
@@ -94,7 +94,7 @@ public class SupermarketTest {
     public void xForY_discount() {
         theCart.addItem(cherryTomatoes);
         theCart.addItem(cherryTomatoes);
-        teller.addSpecialOffer(new XForYDiscount(cherryTomatoes, 2, 0.99));
+        teller.addSpecialOffer(SpecialOfferType.TwoForAmount, cherryTomatoes,.99);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
         Approvals.verify(ReceiptPresenter.present(receipt));
     }

@@ -2,9 +2,9 @@ package dojo.supermarket.model;
 
 public class PercentDiscount extends Offer {
     private final Product product;
-    private final int percentDiscount;
+    private final double percentDiscount;
 
-    public PercentDiscount(Product product, int percentDiscount) {
+    public PercentDiscount(Product product, double percentDiscount) {
         this.product = product;
         this.percentDiscount = percentDiscount;
     }

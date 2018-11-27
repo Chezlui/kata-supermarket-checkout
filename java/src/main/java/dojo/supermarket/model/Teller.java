@@ -14,6 +14,23 @@ public class Teller {
         this.catalog = catalog;
     }
 
+    public void addSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
+        Offer offer = createSpecialOffer(offerType, product, argument);
+        this.offers.put(offer.getProduct(), offer);
+    }
+
+    private Offer createSpecialOffer(SpecialOfferType offerType, Product product, double argument) {
+        switch (offerType) {
+            case ThreeForTwo:
+                return new ThreeForThePriceOfTwo(product, argument);
+            case TenPercentDiscount:
+                return new PercentDiscount(product, argument);
+            case TwoForAmount:
+                return new XForYDiscount(product, 2, argument);
+        }
+        throw new IllegalArgumentException("unreachable");
+    }
+
     public Receipt checksOutArticlesFrom(ShoppingCart theCart) {
         Receipt receipt = new Receipt();
         List<ProductQuantity> productQuantities = theCart.getItems();
@@ -38,7 +55,4 @@ public class Teller {
         return receipt;
     }
 
-    public void addSpecialOffer(Offer offer) {
-        this.offers.put(offer.getProduct(), offer);
-    }
 }
