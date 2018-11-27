@@ -7,27 +7,29 @@ import java.util.Map;
 
 public class ShoppingCart {
 
-    private final List<Product> items = new ArrayList<>();
+    private final List<ProductQuantity> items = new ArrayList<>();
+    Map<Product, Double> productQuantities = new HashMap<>();
 
-    List<Product> getItems() {
+
+    List<ProductQuantity> getItems() {
         return new ArrayList<>(items);
     }
 
     void addItem(Product product) {
-        items.add(product);
+        this.addItemQuantity(product, 1.0);
     }
 
-    Map<Product, Integer> productQuantities() {
-        Map<Product, Integer> productQuantities = new HashMap<>();
-        for (Product p : getItems()) {
-            if (productQuantities.containsKey(p)) {
-                productQuantities.put(p, productQuantities.get(p) + 1);
-            } else {
-                productQuantities.put(p, 1);
-            }
-        }
+    Map<Product, Double> productQuantities() {
         return productQuantities;
     }
 
 
+    public void addItemQuantity(Product product, double quantity) {
+        items.add(new ProductQuantity(product, quantity));
+        if (productQuantities.containsKey(product)) {
+            productQuantities.put(product, productQuantities.get(product) + quantity);
+        } else {
+            productQuantities.put(product, quantity);
+        }
+    }
 }

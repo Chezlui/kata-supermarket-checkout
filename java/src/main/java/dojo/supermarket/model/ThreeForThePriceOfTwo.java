@@ -15,8 +15,17 @@ public class ThreeForThePriceOfTwo implements Offer {
     }
 
     @Override
-    public double getTotalPrice(int quantity, double priceForOne) {
-        int numberOfTrios = quantity/3;
-        return (numberOfTrios * 2 * priceForOne) + quantity % 3 * priceForOne;
+    public Discount getDiscount(Product product, double quantity, double priceForOne) {
+        double discountAmount = quantity * priceForOne -
+                getTotalPrice(quantity, priceForOne);
+
+        return new Discount(product,"3 for 2", discountAmount);
     }
+
+    double getTotalPrice(double quantity, double priceForOne) {
+        int quantityAsInt = (int)quantity;
+        int numberOfTrios = quantityAsInt/3;
+        return (numberOfTrios * 2 * priceForOne) + quantityAsInt % 3 * priceForOne;
+    }
+
 }

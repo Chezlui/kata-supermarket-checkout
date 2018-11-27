@@ -1,7 +1,8 @@
 package dojo.supermarket.model;
 
 public interface SupermarketCatalog {
-    void addProduct(Product toothbrush, double price);
+    void addProduct(Product product, double price);
 
-    double getPrice(Product p);
+    double getUnitPrice(Product product);
+
 }

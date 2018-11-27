@@ -3,5 +3,5 @@ package dojo.supermarket.model;
 public interface Offer {
     Product getProduct();
 
-    double getTotalPrice(int quantity, double priceForOne);
+    Discount getDiscount(Product product, double quantity, double priceForOne);
 }

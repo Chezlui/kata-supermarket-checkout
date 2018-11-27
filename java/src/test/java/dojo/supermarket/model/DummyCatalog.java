@@ -14,7 +14,7 @@ public class DummyCatalog implements SupermarketCatalog {
     }
 
     @Override
-    public double getPrice(Product p) {
+    public double getUnitPrice(Product p) {
         return this.prices.get(p.getName());
     }
 }

@@ -1,16 +1,18 @@
 package dojo.supermarket.model;
 
+import org.approvaltests.Approvals;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class WhenCheckingOutArticlesAtTheSupermarket {
+public class SupermarketTest {
     private SupermarketCatalog catalog;
     private Teller teller;
     private ShoppingCart theCart;
     private Product toothbrush;
     private Product rice;
+    private Product apples;
 
     @Before
     public void setUp() {
@@ -18,24 +20,26 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         teller = new Teller(catalog);
         theCart = new ShoppingCart();
 
-        toothbrush = new Product("toothbrush");
+        toothbrush = new Product("toothbrush", ProductUnit.Each);
         catalog.addProduct(toothbrush, 0.99);
-        rice = new Product("rice");
+        rice = new Product("rice", ProductUnit.Each);
         catalog.addProduct(rice, 2.99);
+        apples = new Product("apples", ProductUnit.Kilo);
+        catalog.addProduct(apples, 1.99);
+
     }
 
     @Test
     public void an_empty_shopping_cart_should_cost_nothing() {
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        assertEquals(0.00, receipt.getTotalPrice(), 0.001);
-
+        Approvals.verify(ReceiptPresenter.present(receipt));
     }
 
     @Test
     public void one_normal_item() {
         theCart.addItem(toothbrush);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        assertEquals(0.99, receipt.getTotalPrice(), 0.001);
+        Approvals.verify(ReceiptPresenter.present(receipt));
     }
 
     @Test
@@ -43,7 +47,7 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         theCart.addItem(toothbrush);
         theCart.addItem(rice);
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        assertEquals(0.99 + 2.99, receipt.getTotalPrice(), 0.001);
+        Approvals.verify(ReceiptPresenter.present(receipt));
     }
 
     @Test
@@ -51,27 +55,16 @@ public class WhenCheckingOutArticlesAtTheSupermarket {
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
         theCart.addItem(toothbrush);
-        teller.addSpecialOffer(new ThreeForThePriceOfTwo(toothbrush, catalog.getPrice(toothbrush)));
+        teller.addSpecialOffer(new ThreeForThePriceOfTwo(toothbrush, catalog.getUnitPrice(toothbrush)));
         Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        assertEquals(0.99 + 0.99, receipt.getTotalPrice(), 0.001);
+        Approvals.verify(ReceiptPresenter.present(receipt));
     }
 
     @Test
-    public void three_for_the_price_of_two() {
-        Offer offer = new ThreeForThePriceOfTwo(toothbrush, 0.99);
-        assertEquals(0.99, offer.getTotalPrice(1, 0.99), 0.001);
-        assertEquals(2*0.99, offer.getTotalPrice(2, 0.99), 0.001);
-        assertEquals(2*0.99, offer.getTotalPrice(3, 0.99), 0.001);
-        assertEquals(3*0.99, offer.getTotalPrice(4, 0.99), 0.001);
-        assertEquals(4*0.99, offer.getTotalPrice(5, 0.99), 0.001);
-        assertEquals(4*0.99, offer.getTotalPrice(6, 0.99), 0.001);
+    public void loose_weight_product() {
+        theCart.addItemQuantity(apples, .5);
+        Receipt receipt = teller.checksOutArticlesFrom(theCart);
+        Approvals.verify(ReceiptPresenter.present(receipt));
     }
 
-    @Test
-    public void receipt_displays_all_items() {
-        theCart.addItem(toothbrush);
-        theCart.addItem(toothbrush);
-        Receipt receipt = teller.checksOutArticlesFrom(theCart);
-        assertEquals(new ReceiptItem(toothbrush, 2, 2*0.99), receipt.getItems().get(0));
-    }
 }

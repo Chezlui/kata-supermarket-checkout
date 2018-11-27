@@ -1,0 +1,5 @@
+ReceiptItem{product=toothbrush, quantity=1, price=0.99, totalPrice=0.99}
+ReceiptItem{product=toothbrush, quantity=1, price=0.99, totalPrice=0.99}
+ReceiptItem{product=toothbrush, quantity=1, price=0.99, totalPrice=0.99}
+Discount: 3 for 2(toothbrush) -0.99
+Total: 1.98

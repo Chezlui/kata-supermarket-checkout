@@ -1,0 +1,2 @@
+ReceiptItem{product=apples, quantity=0.500, price=1.99, totalPrice=1.00}
+Total: 1.00

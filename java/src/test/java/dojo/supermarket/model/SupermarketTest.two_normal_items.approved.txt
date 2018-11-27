@@ -1,0 +1,3 @@
+ReceiptItem{product=toothbrush, quantity=1, price=0.99, totalPrice=0.99}
+ReceiptItem{product=rice, quantity=1, price=2.99, totalPrice=2.99}
+Total: 3.98
